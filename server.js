@@ -15,9 +15,9 @@ app.use("/", require("./routes/root"));
 app.use("/personal",require("./routes/personal"));
 app.use("/builder",require("./routes/builder"));
 app.use("/open",require("./routes/open"));
-app.use("/personal",require("./routes/personal"));
 app.use("/login", require("./routes/login"));
 app.use("/register", require("./routes/register"));
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port http://localhost:${port}`);

@@ -3,9 +3,6 @@ const router = express.Router();
 const path = require("path");
 const app = express();
 
-app.get('/open',(req, res, next) => {
-    res.render(__dirname+'/views/open')
-})
 
 router
     .route("/")
