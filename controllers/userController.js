@@ -12,7 +12,6 @@ exports.find = (req, res) => {
             res.status(500).send({message: err.message || "ERROR: User is not found during the search"})
         })
 };
-
 exports.findOne = async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.id);
@@ -21,7 +20,6 @@ exports.findOne = async (req, res) => {
         res.status(404).json({ message: error.message});
     }
 };
-
 exports.update = async (req, res) => {
     if(!req.body) {
         res.status(400).send({
@@ -45,7 +43,6 @@ exports.update = async (req, res) => {
         });
     });
 };
-
 exports.destroy = async (req, res) => {
     await UserModel.findByIdAndRemove(req.params.id).then(data => {
         if (!data) {
@@ -103,7 +100,6 @@ exports.create = async (req, res) => {
 exports.login = async (req, res) => {
     const {email, password} = req.body
     const user = await User.findOne({email: email}).lean()
-
     if (!user) {
         return res.json({status:'error', error:"Invalid email/password"})
     }
@@ -121,4 +117,11 @@ exports.login = async (req, res) => {
     }
 
     res.json({status:'error', error:"Invalid email/password"})
+}
+exports.logout = (req, res) => {
+    res.clearCookie("token")
+    return res.json({
+        message: "User sign out successful"
+    })
+    return res.render(path.resolve('views/index.ejs'), {users: token})
 }

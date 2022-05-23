@@ -4,10 +4,11 @@ const app = express();
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser")
-const cors = require("cors")
-const methodOverride = require('method-override');
+const swaggerUi = require('swagger-ui-express')
+swaggerDocument = require('./swagger.json')
 
-require("dotenv").config();
+
+//  require("dotenv").config();
 /*
 // DB Connection
 mongoose.connect(process.env.DATABASE, {
@@ -32,6 +33,11 @@ app.set('view engine','ejs')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 
 app.use("/", require("./routes/root"));
 app.use("/personal",require("./routes/personal"));
@@ -39,6 +45,7 @@ app.use("/builder",require("./routes/builder"));
 app.use("/open",require("./routes/open"));
 app.use("/login", require("./routes/login"));
 app.use("/register", require("./routes/register"));
+app.use("/logout",require("./routes/logout"))
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.url, {
